@@ -60,3 +60,10 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "capstone/register.html")
+
+
+def flappy(request):
+    title = "Flappy Bird"
+    return render(request, "capstone/game.html", {
+        'title': title,
+    })
