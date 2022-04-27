@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
     test = document.getElementById('test');
     test.innerHTML = "JavaScript is working";
@@ -5,5 +6,24 @@ document.addEventListener("DOMContentLoaded", function () {
 })
 
 function flappy() {
-    console.log("you are now running flappy bird")
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 600;
+    canvas.height = 400;
+
+    let spacePressed = false;
+    let angle = 0;
+    let hue = 0;
+    let frame = 0;
+    let score = 0;
+    let gamespeed = 2;
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillRect(10, 10, 50, 50);
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
 }
