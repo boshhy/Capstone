@@ -8,4 +8,6 @@ urlpatterns = [
     path("register", views.register, name="register"),
     # TODO change this to <str:title> and get names of games from models
     path("flappy", views.flappy, name="flappy"),
+    path("snake", views.snake, name='snake'),
+    path("score", views.score, name='score'),
 ]

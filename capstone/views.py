@@ -1,9 +1,11 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.urls import reverse
-from .models import User
+from .models import User, Game, Score
+import json
 
 
 def index(request):
@@ -67,3 +69,28 @@ def flappy(request):
     return render(request, "capstone/game.html", {
         'title': title,
     })
+
+
+def snake(request):
+    title = "Snake"
+    return render(request, "capstone/game.html", {
+        'title': title,
+    })
+
+
+@csrf_exempt
+def score(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        game = Game.objects.get(title=data['game'])
+        points = data['points']
+        user_id = User.objects.get(username=request.user)
+        score = Score(username=user_id, game=game, points=points)
+        score.save()
+        print("-----------------")
+        print(game)
+        print(score)
+        print(user_id)
+        print("-----------------")
+        return JsonResponse({"outcome": "Updated Score"})
+    return JsonResponse({"outcome": "request 'post' not satisfied"})
