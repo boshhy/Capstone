@@ -17,6 +17,23 @@ function flappy() {
     console.log("you are now running flappy bird");
     randomx = Math.floor(Math.random() * 101);
     console.log(randomx);
+    // START
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+
+    var bird = new Image();
+    var background = new Image();
+    var ground = new Image();
+    var pipeup = new Image();
+    var pipedown = new Image();
+    // need to figure out how to add image
+
+
+
+
+    // END
+
+
     fetch('/score', {
         method: 'POST',
         body: JSON.stringify({

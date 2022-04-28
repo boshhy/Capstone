@@ -86,7 +86,7 @@ def score(request):
         points = data['points']
         user_id = User.objects.get(username=request.user)
         score = Score(username=user_id, game=game, points=points)
-        score.save()
+        # score.save()
         print("-----------------")
         print(game)
         print(score)
