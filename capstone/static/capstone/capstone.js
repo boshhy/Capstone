@@ -32,15 +32,7 @@ function start_flappy() {
 
 
 function flappy() {
-    // THIS NEEDS TO BE UPDATED ONLY WHEN A USER GETS A NEW TOP SCORE!!! 
-    // NEED TO MOVE INTO FETCH CALL AND LISTEN FOR CHANGE IN SCORES
-    top_scores = document.getElementById('points')
-    top_scores.innerHTML = "update"
 
-
-
-
-    //-----------------------------------------------------------------
     console.log("you are now running flappy bird");
     var canvas = document.getElementById('canvas');
     canvas.width = "288";
@@ -156,6 +148,7 @@ function flappy() {
     //     .then(result => result.json())
     //     .then(console.log('we have saved a score for flappy bird'))
 }
+
 function go_fetch(points, game) {
     fetch('/score', {
         method: 'POST',
@@ -165,7 +158,21 @@ function go_fetch(points, game) {
         })
     })
         .then(result => result.json())
-        .then(console.log('we have saved a score for ' + game))
+        .then(result => {
+            if (result['outcome'] == 'updated') {
+                fetch('/update_score/' + game)
+                    .then(response => response.json())
+                    .then(scores => {
+                        top_scores = document.getElementById('points');
+                        top_scores.innerHTML = "";
+                        scores.forEach((score) => {
+                            div = document.createElement("div");
+                            div.innerHTML = score['points'] + ' - ' + score['user'];
+                            top_scores.append(div);
+                        })
+                    })
+            }
+        })
 }
 
 function snake() {

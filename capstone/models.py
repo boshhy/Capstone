@@ -22,5 +22,11 @@ class Score(models.Model):
     points = models.DecimalField(
         max_digits=16, decimal_places=0, default=0)
 
+    def serialize(self):
+        return {
+            "points": self.points,
+            "user": self.username.username,
+        }
+
     def __str__(self):
-        return f"{self.points} -{self.username}"
+        return f"{self.points} - {self.username}"

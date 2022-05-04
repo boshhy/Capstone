@@ -108,4 +108,4 @@ def score(request):
 def update_score(request, game):
     game_id = Game.objects.get(title=game)
     top_points = Score.objects.filter(game=game_id).order_by('-points')
-    return JsonResponse({"updated": "score"})
+    return JsonResponse([score.serialize() for score in top_points], safe=False)

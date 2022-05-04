@@ -3,6 +3,7 @@
 }
 
 #points {
-    text-align: center;
+    text-align: left;
     float: left;
+    margin: 10px;
 }
