@@ -23,4 +23,4 @@ class Score(models.Model):
         max_digits=16, decimal_places=0, default=0)
 
     def __str__(self):
-        return f"{self.points},  By: {self.username}, game: {self.game}"
+        return f"{self.points} -{self.username}"

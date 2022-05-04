@@ -1,10 +1,17 @@
 {% extends "capstone/layout.html" %}
 {% load static %}
 {% block body %}
+
+<div id="points">
+    {% for score in top_points %}
+        {{score}}<br>
+    {% endfor %}
+</div>
 <div id="div_canvas">
     <div id="title">{{title}}</div>
+
     <div id-="start">Press 's' to start the game</div>
-    <img id="start_image" src="{% static 'capstone/images/start_flappy.png' %}">
+    <img id="start_image" alt="Coult not load image">
     <canvas id="canvas"></canvas>
 </div>
 {% endblock %}

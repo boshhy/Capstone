@@ -10,4 +10,5 @@ urlpatterns = [
     path("flappy", views.flappy, name="flappy"),
     path("snake", views.snake, name='snake'),
     path("score", views.score, name='score'),
+    path("update_score/<str:game>", views.update_score, name="update"),
 ]

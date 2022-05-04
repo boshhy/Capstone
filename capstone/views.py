@@ -66,8 +66,11 @@ def register(request):
 
 def flappy(request):
     title = "Flappy Bird"
+    game_id = Game.objects.get(title="flappy_bird")
+    top_points = Score.objects.filter(game=game_id).order_by('-points')
     return render(request, "capstone/game.html", {
         'title': title,
+        'top_points': top_points,
     })
 
 
@@ -86,11 +89,23 @@ def score(request):
         points = data['points']
         user_id = User.objects.get(username=request.user)
         score = Score(username=user_id, game=game, points=points)
-        # score.save()
-        print("-----------------")
-        print(game)
-        print(score)
-        print(user_id)
-        print("-----------------")
-        return JsonResponse({"outcome": "Updated Score"})
+
+        top_scores_for_game = Score.objects.filter(
+            game=game).order_by("-points")
+        if top_scores_for_game.count() < 10:
+            score.save()
+            return JsonResponse({"outcome": "updated"})
+        elif points > top_scores_for_game[9].points:
+            print(top_scores_for_game.count())
+            score.save()
+            while top_scores_for_game.count() > 10:
+                top_scores_for_game[10].delete()
+            return JsonResponse({"outcome": "updated"})
+        return JsonResponse({"outcome": "same"})
     return JsonResponse({"outcome": "request 'post' not satisfied"})
+
+
+def update_score(request, game):
+    game_id = Game.objects.get(title=game)
+    top_points = Score.objects.filter(game=game_id).order_by('-points')
+    return JsonResponse({"updated": "score"})

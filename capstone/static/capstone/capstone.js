@@ -18,6 +18,7 @@ function start_flappy() {
     canvas.width = "0";
     canvas.height = "0";
     img = document.getElementById("start_image");
+    img.src = 'static/capstone/images/start_flappy.png';
     img.height = "512";
     img.width = "288";
     document.addEventListener("keydown", (event) => {
@@ -31,6 +32,15 @@ function start_flappy() {
 
 
 function flappy() {
+    // THIS NEEDS TO BE UPDATED ONLY WHEN A USER GETS A NEW TOP SCORE!!! 
+    // NEED TO MOVE INTO FETCH CALL AND LISTEN FOR CHANGE IN SCORES
+    top_scores = document.getElementById('points')
+    top_scores.innerHTML = "update"
+
+
+
+
+    //-----------------------------------------------------------------
     console.log("you are now running flappy bird");
     var canvas = document.getElementById('canvas');
     canvas.width = "288";

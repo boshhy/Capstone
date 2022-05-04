@@ -1,3 +1,8 @@
 #div_canvas {
     text-align: center;
 }
+
+#points {
+    text-align: center;
+    float: left;
+}
