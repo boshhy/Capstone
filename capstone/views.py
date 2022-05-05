@@ -64,31 +64,50 @@ def register(request):
         return render(request, "capstone/register.html")
 
 
-def flappy(request):
-    title = "Flappy Bird"
-    game_id = Game.objects.get(title="flappy_bird")
+@csrf_exempt
+def game(request, game_name):
+    title = game_name
+    print('------------------------------------------> ' + game_name)
+    game_id = Game.objects.get(title=title)
     top_points = Score.objects.filter(game=game_id).order_by('-points')
+    if title == 'flappy_bird':
+        title = "Flappy Bird"
+    if title == "snake":
+        title = "Snake"
     return render(request, "capstone/game.html", {
         'title': title,
         'top_points': top_points,
     })
 
 
-def snake(request):
-    title = "Snake"
-    return render(request, "capstone/game.html", {
-        'title': title,
-    })
+# def flappy(request):
+#     title = "Flappy Bird"
+#     game_id = Game.objects.get(title="flappy_bird")
+#     top_points = Score.objects.filter(game=game_id).order_by('-points')
+#     return render(request, "capstone/game.html", {
+#         'title': title,
+#         'top_points': top_points,
+#     })
+
+
+# def snake(request):
+#     title = "Snake"
+#     return render(request, "capstone/game.html", {
+#         'title': title,
+#     })
 
 
 @csrf_exempt
 def score(request):
     if request.method == "POST":
+
+        print('--------------------------------------------not yet')
         data = json.loads(request.body)
         game = Game.objects.get(title=data['game'])
         points = data['points']
         user_id = User.objects.get(username=request.user)
         score = Score(username=user_id, game=game, points=points)
+        print('----------------made it')
 
         top_scores_for_game = Score.objects.filter(
             game=game).order_by("-points")

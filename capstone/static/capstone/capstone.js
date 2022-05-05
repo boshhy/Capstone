@@ -19,7 +19,7 @@ function start_flappy() {
     canvas.width = "0";
     canvas.height = "0";
     img = document.getElementById("start_image");
-    img.src = 'static/capstone/images/start_flappy.png';
+    img.src = '/static/capstone/images/start_flappy.png';
     img.height = "512";
     img.width = "288";
 
@@ -40,7 +40,7 @@ function start_snake() {
     canvas.width = "0";
     canvas.height = "0";
     img = document.getElementById("start_image");
-    img.src = 'static/capstone/images/start_snake.png';
+    img.src = '/static/capstone/images/start_snake.png';
     img.height = "608";
     img.width = "608";
     document.addEventListener("keydown", (event) => {
@@ -72,13 +72,13 @@ function flappy() {
     var hit = new Audio();
 
     bird.src = '/static/capstone/images/bird.png';
-    background.src = 'static/capstone/images/background.png';
-    ground.src = 'static/capstone/images/ground.png';
-    pipeup.src = 'static/capstone/images/pipeup.png';
-    pipedown.src = 'static/capstone/images/pipedown.png';
-    hit.src = 'static/capstone/sounds/hit.wav';
-    point.src = 'static/capstone/sounds/point.mp3';
-    //fly.src = 'static/capstone/sounds/fly.mp3';
+    background.src = '/static/capstone/images/background.png';
+    ground.src = '/static/capstone/images/ground.png';
+    pipeup.src = '/static/capstone/images/pipeup.png';
+    pipedown.src = '/static/capstone/images/pipedown.png';
+    hit.src = '/static/capstone/sounds/hit.wav';
+    point.src = '/static/capstone/sounds/point.mp3';
+    //fly.src = '/static/capstone/sounds/fly.mp3';
 
     if (pipeup.height == 0) {
         pipeup.height = 242;
@@ -178,6 +178,7 @@ function flappy() {
 }
 
 function go_fetch(points, game) {
+    console.log("made it to go_fetch")
     fetch('/score', {
         method: 'POST',
         body: JSON.stringify({
@@ -187,6 +188,7 @@ function go_fetch(points, game) {
     })
         .then(result => result.json())
         .then(result => {
+            console.log("you made it to the outcome")
             if (result['outcome'] == 'updated') {
                 fetch('/update_score/' + game)
                     .then(response => response.json())
@@ -224,10 +226,10 @@ function snake() {
     const box = 32;
 
     const floor = new Image();
-    floor.src = "static/capstone/images/floor.png";
+    floor.src = "/static/capstone/images/floor.png";
 
     const foodImg = new Image();
-    foodImg.src = "static/capstone/images/food.png";
+    foodImg.src = "/static/capstone/images/food.png";
 
     let snake = [];
 
@@ -311,6 +313,7 @@ function snake() {
             || snakeY < 3 * box || snakeY > 17 * box
             || collision(newHead, snake)) {
             clearInterval(game);
+            go_fetch(score, "snake");
             running = false;
         }
 

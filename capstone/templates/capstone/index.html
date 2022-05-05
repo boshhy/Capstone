@@ -7,7 +7,10 @@
         <li>Handle logged in user</li>
         <li>Handle users that are NOT logged it</li>
     </ul>
-    <div id="title">Pick a game to play</div>
-    <a href="{% url "flappy" %}">Flappy Bird</a><br>
-    <a href="{% url "snake" %}">Snake</a>
+    <div id="title">
+        Pick a game to play
+        <br>
+        <a href="{% url 'game' 'flappy_bird' %}">Flappy Bird</a><br>
+        <a href="{% url 'game' 'snake' %}">Snake</a>
+    </div>
 {% endblock %}
