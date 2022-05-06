@@ -7,3 +7,12 @@
     float: left;
     margin: 10px;
 }
+
+.single_game_image {
+    width: 94%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 9px;
+    margin-bottom: 9px;
+    display: block;
+}

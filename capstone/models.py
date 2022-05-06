@@ -8,7 +8,9 @@ class User(AbstractUser):
 
 class Game(models.Model):
     title = models.CharField(max_length=64, blank=False)
+    name = models.CharField(max_length=64, blank=False)
     description = models.TextField(blank=False)
+    imageURL = models.CharField(max_length=1024, blank=True)
 
     def __str__(self):
         return f"{self.title}"

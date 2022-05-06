@@ -9,7 +9,10 @@ import json
 
 
 def index(request):
-    return render(request, "capstone/index.html")
+    all_games = Game.objects.all()
+    return render(request, "capstone/index.html", {
+        "all_games": all_games,
+    })
 
 
 def login_view(request):
@@ -111,7 +114,7 @@ def score(request):
 
         top_scores_for_game = Score.objects.filter(
             game=game).order_by("-points")
-        if top_scores_for_game.count() < 10:
+        if top_scores_for_game.count() < 10 and points != 0:
             score.save()
             return JsonResponse({"outcome": "updated"})
         elif points > top_scores_for_game[9].points:

@@ -3,14 +3,51 @@
 {% block body %}
     Index page
     <ul>
-        <li>Game Images here with link</li>
         <li>Handle logged in user</li>
         <li>Handle users that are NOT logged it</li>
     </ul>
-    <div id="title">
-        Pick a game to play
+
+    <div class="center" style="background-color: #d3d4d6;"> <br>
+        <h2 style="text-align: center;">All Games</h2>
         <br>
-        <a href="{% url 'game' 'flappy_bird' %}">Flappy Bird</a><br>
-        <a href="{% url 'game' 'snake' %}">Snake</a>
+        <div class="container-fluid">
+            <div class="row" style="margin-left: 100px; margin-right: 0px;"">
+                {% for game in all_games %}
+                <div class="center">
+                <div class="col-xl-3 center">
+                    <div class="card center" style="width:300px; height: 500px; background-color: #899593;">
+                            <a href="{% url 'game' game.title %}"><img class="single_game_image card-img-top"  style="max-height: 282px; max-width: 282px; width: auto; height: auto; border: 1px solid #2c3632;" src="{{ game.imageURL }}" alt="No Image"> </a>
+                        <kbd class="center" style="width: 282px; text-align: center; margin-left: 9px; margin-right: 9px; background-color: #2c3632;">
+                            <b style="text-align: center; text-transform: capitalize;"><a href="{% url 'game' game.title %}" style="margin-left: 9px; margin-right: 9px; color: #d3d4d6;"> {{ game.name }} </a></b>
+                        </kbd>
+                            <b style="margin-left: 9px;">Description:</b>
+                            <div style="margin: 9px; margin-top: 0px; background-color:#2c3632; color: #899593; width: 282px; height: 100%; ">
+                                <div style="margin-left: 5px; margin-right: 5px;">
+                                    {{ game.description.capitalize }}
+                                </div>
+                            </div>
+                    </div><br>
+                </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- TODO: change id of title div-->
+    <div id="title">
     </div>
 {% endblock %}

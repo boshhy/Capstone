@@ -315,6 +315,7 @@ function snake() {
             clearInterval(game);
             go_fetch(score, "snake");
             running = false;
+            return;
         }
 
 
@@ -327,20 +328,4 @@ function snake() {
     }
 
     let game = setInterval(draw, 128);
-
-
-
-
-    console.log("you are now running snake");
-    fetch('/score', {
-        method: 'POST',
-        body: JSON.stringify({
-            'points': 2,
-            'game': 'snake',
-        })
-    })
-        .then(result => result.json())
-        .then(console.log('we have saved a score for snake'))
 }
-
-
