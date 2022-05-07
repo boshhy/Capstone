@@ -7,7 +7,7 @@ urlpatterns = [
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
     # TODO change this to <str:title> and get names of games from models
-    path("game/<str:game_name>", views.game, name='game'),
+    path("game/<str:game_title>", views.game, name='game'),
     # working on above
     #path("flappy", views.flappy, name="flappy"),
     #path("snake", views.snake, name='snake'),

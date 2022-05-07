@@ -16,8 +16,11 @@ running = false;
 
 function start_flappy() {
     canvas = document.getElementById('canvas')
+    div_canvas = document.getElementById('div_canvas');
+    div_canvas.setAttribute('style', 'max-width: 308px;')
     canvas.width = "0";
     canvas.height = "0";
+    canvas.style.display = 'none';
     img = document.getElementById("start_image");
     img.src = '/static/capstone/images/start_flappy.png';
     img.height = "512";
@@ -26,8 +29,9 @@ function start_flappy() {
     document.addEventListener("keydown", (event) => {
         if (!event.repeat) {
             if (event.key === 's' && !running) {
-                canvas.width = "288";
+                canvas.style.display = '';
                 canvas.height = "512";
+                canvas.width = "288";
                 img.style.display = 'none';
                 flappy();
             }
@@ -37,8 +41,11 @@ function start_flappy() {
 
 function start_snake() {
     canvas = document.getElementById('canvas')
+    div_canvas = document.getElementById('div_canvas');
+    div_canvas.setAttribute('style', 'max-width: 628px;')
     canvas.width = "0";
     canvas.height = "0";
+    canvas.style.display = 'none';
     img = document.getElementById("start_image");
     img.src = '/static/capstone/images/start_snake.png';
     img.height = "608";
@@ -48,6 +55,7 @@ function start_snake() {
             if (event.key === 's' && !running) {
                 canvas.width = "608";
                 canvas.height = "608";
+                canvas.style.display = '';
                 img.style.display = 'none';
                 snake();
             }
@@ -177,46 +185,6 @@ function flappy() {
     draw();
 }
 
-function go_fetch(points, game) {
-    console.log("made it to go_fetch")
-    fetch('/score', {
-        method: 'POST',
-        body: JSON.stringify({
-            'points': points,
-            'game': game,
-        })
-    })
-        .then(result => result.json())
-        .then(result => {
-            console.log("you made it to the outcome")
-            if (result['outcome'] == 'updated') {
-                fetch('/update_score/' + game)
-                    .then(response => response.json())
-                    .then(scores => {
-                        top_scores = document.getElementById('points');
-                        top_scores.innerHTML = "";
-                        scores.forEach((score) => {
-                            div = document.createElement("div");
-                            div.innerHTML = score['points'] + ' - ' + score['user'];
-                            top_scores.append(div);
-                        })
-                    })
-            }
-        })
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function snake() {
     running = true;
@@ -313,6 +281,9 @@ function snake() {
             || snakeY < 3 * box || snakeY > 17 * box
             || collision(newHead, snake)) {
             clearInterval(game);
+            ctx.fillStyle = "white";
+            ctx.font = "45px Changa one";
+            ctx.fillText(score, 2 * box, 1.6 * box);
             go_fetch(score, "snake");
             running = false;
             return;
@@ -328,4 +299,33 @@ function snake() {
     }
 
     let game = setInterval(draw, 128);
+}
+
+
+function go_fetch(points, game) {
+    console.log("made it to go_fetch")
+    fetch('/score', {
+        method: 'POST',
+        body: JSON.stringify({
+            'points': points,
+            'game': game,
+        })
+    })
+        .then(result => result.json())
+        .then(result => {
+            console.log("you made it to the outcome")
+            if (result['outcome'] == 'updated') {
+                fetch('/update_score/' + game)
+                    .then(response => response.json())
+                    .then(scores => {
+                        top_scores = document.getElementById('points');
+                        top_scores.innerHTML = "<h1>TOP 10</h1>";
+                        scores.forEach((score) => {
+                            div = document.createElement("div");
+                            div.innerHTML = score['points'] + ' - ' + score['user'];
+                            top_scores.append(div);
+                        })
+                    })
+            }
+        })
 }

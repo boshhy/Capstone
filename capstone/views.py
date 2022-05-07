@@ -68,17 +68,13 @@ def register(request):
 
 
 @csrf_exempt
-def game(request, game_name):
-    title = game_name
-    print('------------------------------------------> ' + game_name)
-    game_id = Game.objects.get(title=title)
-    top_points = Score.objects.filter(game=game_id).order_by('-points')
-    if title == 'flappy_bird':
-        title = "Flappy Bird"
-    if title == "snake":
-        title = "Snake"
+def game(request, game_title):
+
+    the_game = Game.objects.get(title=game_title)
+    top_points = Score.objects.filter(game=the_game).order_by('-points')
+
     return render(request, "capstone/game.html", {
-        'title': title,
+        'the_game': the_game,
         'top_points': top_points,
     })
 

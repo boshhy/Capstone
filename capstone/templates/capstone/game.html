@@ -2,16 +2,24 @@
 {% load static %}
 {% block body %}
 
-<div id="points">
-    {% for score in top_points %}
-        <div id="single_score">{{score}}</div>
-    {% endfor %}
-</div>
-<div id="div_canvas">
-    <div id="title">{{title}}</div>
+<div class="sidebar-flex">
+    <div id="points">
+        <h1>TOP 10</h1>
+        {% for score in top_points %}
+            <div id="single_score">{{score}}</div>
+        {% endfor %}
+    </div>
+    <div id="div_canvas">
+        <div id="title">{{ the_game.name }}</div>
 
-    <div id-="start">Press 's' to start the game</div>
-    <img id="start_image" alt="Coult not load image">
-    <canvas id="canvas"></canvas>
+        <div id-="start">Press 's' to start the game</div>
+        <img id="start_image" alt="Coult not load image">
+        <canvas id="canvas"></canvas>
+    </div>
+    <div id="directions">
+        <div id="instructions">
+            {{ the_game.description }}
+        </div>
+    </div>
 </div>
 {% endblock %}
