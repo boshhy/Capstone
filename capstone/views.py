@@ -127,3 +127,36 @@ def update_score(request, game):
     game_id = Game.objects.get(title=game)
     top_points = Score.objects.filter(game=game_id).order_by('-points')
     return JsonResponse([score.serialize() for score in top_points], safe=False)
+
+
+def search(request):
+    if request.method == "GET":
+        # Gets the search and games and assigns them to variables
+        the_search = request.GET.get("q").lower()
+        all_games = Game.objects.all()
+        the_list = []
+
+        # Look at all the games and see if any game.name matches with the_search
+        for game in all_games:
+            if the_search == game.name.lower():
+                return HttpResponseRedirect(reverse("game", args=[game.title]))
+
+        # Look through the game names for matching substring
+        for game in all_games:
+            if the_search in game.name.lower():
+                # If substring matches entry add entry to the_list
+                the_list.append(game)
+
+        # If nothing was found return proper response
+        if not the_list:
+            return render(request, "capstone/index.html", {
+                "nothing_found": True
+            })
+
+        # Display the games that match the substring
+        return render(request, "capstone/index.html", {
+            "nothing_found": False,
+            "all_games": the_list
+        })
+    else:
+        return HttpResponse("An error occured")

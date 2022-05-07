@@ -13,4 +13,5 @@ urlpatterns = [
     #path("snake", views.snake, name='snake'),
     path("score", views.score, name='score'),
     path("update_score/<str:game>", views.update_score, name="update"),
+    path("search", views.search, name='search'),
 ]

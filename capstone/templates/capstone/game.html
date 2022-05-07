@@ -9,6 +9,7 @@
             <div id="single_score">{{score}}</div>
         {% endfor %}
     </div>
+    {% if user.is_authenticated %}
     <div id="div_canvas">
         <div id="title">{{ the_game.name }}</div>
 
@@ -16,6 +17,21 @@
         <img id="start_image" alt="Coult not load image">
         <canvas id="canvas"></canvas>
     </div>
+    {% else %}
+    <div id="div_canvas">
+        <br>
+        <div id="title">
+            <kbd style="background-color: red; color: black;  font-size: 32px;">
+                LOG IN TO PLAY
+            </kbd>
+        </div>
+        <br>
+        <img id="start_image" src="{{ the_game.imageURL }}" alt="Could not load image">
+        
+    </div>
+    {% endif%}
+
+
     <div id="directions">
         <div id="instructions">
             {{ the_game.description }}

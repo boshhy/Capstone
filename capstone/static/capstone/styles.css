@@ -47,3 +47,21 @@
     max-width: 300px;
     /* border: 10px solid red; */
 }
+
+#not_found {
+    text-align: center;
+    align-items: center;
+}
+
+.content {
+    background-color: #d3d4d6;
+    min-height: 77vh;
+}
+
+#not_logged {
+    text-align: center;
+}
+
+#div_search {
+    text-align: center;
+}
