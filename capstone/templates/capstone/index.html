@@ -4,26 +4,27 @@
 
 
     <div class="center content">
-        <br>
-        <div id="div_search">
+        {% if user.is_authenticated %}
+            <h2 style="text-align: center; padding: 12px; padding-bottom: 0px;">All Games</h2>
+        {% else %}
+            <div style="text-align: center; padding: 12px; padding-bottom: 0px;">
+                <kbd style="background-color: red; color: black;  font-size: 32px; padding-left: 20px; padding-right: 20px;">
+                     LOG IN TO PLAY 
+                </kbd>
+            </div>
+        {% endif %}
+
+        <div id="div_search" style="padding: 0px; padding-bottom: 10px;">
             <form action="{% url 'search' %}" method="GET">
                 {% csrf_token %}
                 <input class="search" type="text" name="q" placeholder="Search Games">
+                
+                <button id="btn_search" type="submit">Search Games</button>
+                
             </form>
+           
         </div>
-        {% if user.is_authenticated %}
-            <br>
-            <h2 style="text-align: center; margin: 0px;">All Games</h2>
-            <br>
-        {% else %}
-            <br>
-            <div style="text-align: center;">
-                <kbd style="background-color: red; color: black;  font-size: 32px;">
-                    LOG IN TO PLAY
-                </kbd>
-            </div>
-            <br>
-        {% endif %}
+
         <div id="not_found">
             {% if nothing_found %}
                 <kbd style="background-color: red;">Sorry nothing found.</kbd>
