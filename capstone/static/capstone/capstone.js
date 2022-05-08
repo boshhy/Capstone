@@ -319,12 +319,34 @@ function go_fetch(points, game) {
                     .then(response => response.json())
                     .then(scores => {
                         top_scores = document.getElementById('points');
-                        top_scores.innerHTML = "<h1>TOP 10</h1>";
+                        top_scores.innerHTML = "";
+                        table1 = document.createElement("table");
+                        tr = document.createElement("tr");
+                        th_1 = document.createElement("th");
+                        th_2 = document.createElement("th");
+
+                        th_1.innerHTML = "Top 10";
+                        th_2.innerHTML = "User";
+
+                        tr.append(th_1);
+                        tr.append(th_2);
+                        table1.append(tr)
+
+
                         scores.forEach((score) => {
-                            div = document.createElement("div");
-                            div.innerHTML = score['points'] + ' - ' + score['user'];
-                            top_scores.append(div);
+                            tr = document.createElement("tr");
+                            td_1 = document.createElement("td");
+                            td_2 = document.createElement("td");
+
+                            td_1.innerHTML = score['points'];
+                            td_2.innerHTML = score['user'];
+
+
+                            tr.append(td_1);
+                            tr.append(td_2);
+                            table1.append(tr);
                         })
+                        top_scores.append(table1);
                     })
             }
         })

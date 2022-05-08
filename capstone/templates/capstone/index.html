@@ -17,7 +17,7 @@
         <div id="div_search" style="padding: 0px; padding-bottom: 10px;">
             <form action="{% url 'search' %}" method="GET">
                 {% csrf_token %}
-                <input class="search" type="text" name="q" placeholder="Search Games">
+                <input class="search" type="text" name="q" placeholder="Search Games" autocomplete="off">
                 
                 <button id="btn_search" type="submit">Search Games</button>
                 
@@ -27,7 +27,7 @@
 
         <div id="not_found">
             {% if nothing_found %}
-                <kbd style="background-color: red;">Sorry nothing found.</kbd>
+                <kbd style="background-color: red; color:white; padding-left: 50px; padding-right: 50px;">Nothing found.</kbd>
             {% endif %}
         </div>
         <div class="container-fluid">

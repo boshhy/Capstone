@@ -101,3 +101,17 @@
     width: auto;
     max-width: 584px;
 }
+
+table,
+th,
+td {
+    border: 2px solid black;
+}
+
+th {
+    width: 300px;
+}
+
+td {
+    font-weight: bold;
+}

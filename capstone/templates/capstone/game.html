@@ -3,13 +3,22 @@
 {% block body %}
 
 <div class="sidebar-flex">
+
     <div id="points">
-        <h1>TOP 10</h1>
-        {% for score in top_points %}
-            <div id="single_score">{{score}}</div>
-        {% endfor %}
+        <table>
+            <tr>
+                <th>Top 10</th>
+                <th>User</th>
+            </tr>
+            {% for score in top_points %}
+            <tr>
+                <td>{{ score.points }}</td>
+                <td>{{ score.username }}</td>
+            </tr>
+            {% endfor %}
+        </table>
     </div>
-    {% if user.is_authenticated %}
+    
     <div id="div_canvas">
         <div id="title">{{ the_game.name }}</div>
 
@@ -17,25 +26,12 @@
         <img id="start_image" alt="Coult not load image">
         <canvas id="canvas"></canvas>
     </div>
-    {% else %}
-    <div id="div_canvas">
-        <br>
-        <div id="title">
-            <kbd style="background-color: red; color: black;  font-size: 32px; padding-left: 20px; padding-right: 20px;">
-                LOG IN TO PLAY 
-           </kbd>
-        </div>
-        <br>
-        <img id="start_image" src="{{ the_game.imageURL }}" alt="Could not load image">
-        
-    </div>
-    {% endif%}
-
-
+    
     <div id="directions">
         <div id="instructions">
             {{ the_game.description }}
         </div>
     </div>
+
 </div>
 {% endblock %}
