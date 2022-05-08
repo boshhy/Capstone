@@ -139,4 +139,13 @@ td {
 #the_heart>* {
     float: none !important;
     padding-bottom: 6px;
+    margin-right: 0px !important;
+}
+
+h4 {
+    margin-bottom: 0px;
+}
+
+#a_game:hover {
+    text-decoration: none;
 }

@@ -20,9 +20,7 @@
     </div>
     {% if user.is_authenticated %}
         <div id="div_canvas">
-            <div id="title">{{ the_game.name }}</div>
-
-            <div id-="start">Press 's' to start the game</div>
+            <b><h4><div id="title">{{ the_game.name }}</div></h4></b>
             <div id="the_heart">
                 {% if request.user in the_game.likes.all %}
                     <i class="fa-solid fa-heart liked" id="like_icon" data-iconid="{{the_game.id}}"></i>
@@ -37,9 +35,11 @@
     <div id="div_canvas">
         <br>
         <div id="title">
-            <kbd style="background-color: red; color: black;  font-size: 32px; padding-left: 20px; padding-right: 20px;">
-                LOG IN TO PLAY 
-           </kbd>
+            <a id="a_game" href="{% url 'login' %}">
+                <kbd style="background-color: red; color: black;  font-size: 32px; padding-left: 20px; padding-right: 20px;">
+                    LOG IN TO PLAY
+                </kbd>
+            </a>
            <br>
            <i class="fa-regular fa-heart game_like"></i>
         </div>
