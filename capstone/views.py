@@ -160,3 +160,23 @@ def search(request):
         })
     else:
         return HttpResponse("An error occured")
+
+
+@csrf_exempt
+def like(request):
+    data = json.loads(request.body)
+    game = Game.objects.get(id=data['id'])
+    user_id = User.objects.get(username=request.user)
+
+    # Check to see if user is already liking this game
+    if user_id in game.likes.all():
+        # If user already liking, then remove from likes
+        game.likes.remove(user_id)
+        game.save()
+        return JsonResponse({"outcome": "Removed"})
+
+    # If user is not in the game's likes then
+    # add user to likes
+    game.likes.add(user_id)
+    game.save()
+    return JsonResponse({"outcome": "Added"})

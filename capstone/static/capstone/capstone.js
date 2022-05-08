@@ -1,5 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     title = document.getElementById('title');
+    like_icons = document.querySelectorAll("#like_icon");
+
+    like_icons.forEach(icon => {
+        icon.addEventListener("click", like_icon_clicked)
+    })
 
     if (title.innerHTML == "Flappy Bird") {
         start_flappy();
@@ -332,7 +337,6 @@ function go_fetch(points, game) {
                         tr.append(th_2);
                         table1.append(tr)
 
-
                         scores.forEach((score) => {
                             tr = document.createElement("tr");
                             td_1 = document.createElement("td");
@@ -348,6 +352,33 @@ function go_fetch(points, game) {
                         })
                         top_scores.append(table1);
                     })
+            }
+        })
+}
+
+function like_icon_clicked() {
+    // Get the id of the game for which the clicked like icon belongs to
+    game_id = this.dataset.iconid
+
+    // Call the like function in the backend to deal with the click
+    // either add or removes the user from the games likes table
+    fetch('/like', {
+        method: 'POST',
+        body: JSON.stringify({
+            'id': game_id,
+        })
+    })
+        .then(result => result.json())
+        .then(data => {
+            // When added to the table change to red heart icon
+            // and increase the count by 1
+            if (data['outcome'] == 'Added') {
+                this.className = "fa-solid fa-heart liked"
+            }
+            // When removed from the table change to hollow heart icon
+            // and decrease the count by 1
+            else {
+                this.className = "fa-regular fa-heart"
             }
         })
 }

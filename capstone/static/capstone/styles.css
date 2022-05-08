@@ -115,3 +115,19 @@ th {
 td {
     font-weight: bold;
 }
+
+#like_icon {
+    float: right;
+    margin-right: 12px;
+    margin-top: 3px;
+}
+
+.liked {
+    color: red;
+}
+
+#non_auth_like {
+    float: right;
+    margin-right: 12px;
+    margin-top: 3px;
+}

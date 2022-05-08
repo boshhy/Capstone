@@ -14,4 +14,5 @@ urlpatterns = [
     path("score", views.score, name='score'),
     path("update_score/<str:game>", views.update_score, name="update"),
     path("search", views.search, name='search'),
+    path('like', views.like, name="like"),
 ]
