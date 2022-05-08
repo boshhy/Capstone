@@ -19,13 +19,20 @@
         </table>
     </div>
     {% if user.is_authenticated %}
-    <div id="div_canvas">
-        <div id="title">{{ the_game.name }}</div>
+        <div id="div_canvas">
+            <div id="title">{{ the_game.name }}</div>
 
-        <div id-="start">Press 's' to start the game</div>
-        <img id="start_image" alt="Coult not load image">
-        <canvas id="canvas"></canvas>
-    </div>
+            <div id-="start">Press 's' to start the game</div>
+            <div id="the_heart">
+                {% if request.user in the_game.likes.all %}
+                    <i class="fa-solid fa-heart liked" id="like_icon" data-iconid="{{the_game.id}}"></i>
+                {% else %}
+                    <i class="fa-regular fa-heart" id="like_icon" data-iconid="{{the_game.id}}"></i>
+                {% endif%}
+            </div>
+            <img id="start_image" alt="Coult not load image">
+            <canvas id="canvas"></canvas>
+        </div>
     {% else %} 
     <div id="div_canvas">
         <br>
@@ -33,8 +40,9 @@
             <kbd style="background-color: red; color: black;  font-size: 32px; padding-left: 20px; padding-right: 20px;">
                 LOG IN TO PLAY 
            </kbd>
+           <br>
+           <i class="fa-regular fa-heart game_like"></i>
         </div>
-        <br>
         <img id="start_image" src="{{ the_game.imageURL }}" alt="Could not load image">
 
     </div>

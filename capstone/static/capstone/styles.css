@@ -131,3 +131,12 @@ td {
     margin-right: 12px;
     margin-top: 3px;
 }
+
+.game_like {
+    padding-bottom: 6px;
+}
+
+#the_heart>* {
+    float: none !important;
+    padding-bottom: 6px;
+}
