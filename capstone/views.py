@@ -180,3 +180,32 @@ def like(request):
     game.likes.add(user_id)
     game.save()
     return JsonResponse({"outcome": "Added"})
+
+
+def liked(request):
+    if request.user.is_authenticated:
+        user_id = User.objects.get(username=request.user)
+        all_games = Game.objects.all()
+        liked_games = []
+        for game in all_games:
+            if user_id in game.likes.all():
+                liked_games.append(game)
+
+                # If nothing was found return proper response
+        if not liked_games:
+            return render(request, "capstone/liked.html", {
+                "nothing_found": True
+            })
+
+        return render(request, "capstone/liked.html", {
+            "nothing_found": False,
+            "liked_games": liked_games
+        })
+    else:
+        return render(request, "capstone/liked.html", {
+            "nothing_found": True
+        })
+
+
+def profile(request):
+    return HttpResponse("user history here")

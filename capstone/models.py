@@ -35,11 +35,13 @@ class Score(models.Model):
         return f"{self.points} - {self.username}"
 
 
-# class Like(models.Model):
-#     user = models.ForeignKey(
-#         User, on_delete=models.CASCADE, related_name="like", blank=False)
-#     game = models.ForeignKey(
-#         Game, on_delete=models.CASCADE, related_name="like", blank=False)
+class Profile(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='profile')
+    game = models.ForeignKey(
+        Game, on_delete=models.CASCADE, related_name="profile")
+    points = models.DecimalField(
+        max_digits=16, decimal_places=0, default=0)
 
-#     def __str__(self):
-#         return f"{self.user.username} {self.game.name}"
+    def __str__(self):
+        return f"{self.points} - {self.user}"
