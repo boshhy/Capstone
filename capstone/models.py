@@ -42,6 +42,13 @@ class Profile(models.Model):
         Game, on_delete=models.CASCADE, related_name="profile")
     points = models.DecimalField(
         max_digits=16, decimal_places=0, default=0)
+    time = models.DateTimeField(auto_now_add=True, blank=False)
+
+    def serialize(self):
+        return {
+            "points": self.points,
+            "user": self.username.username,
+        }
 
     def __str__(self):
         return f"{self.points} - {self.user}"

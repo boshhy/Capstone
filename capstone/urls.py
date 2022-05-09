@@ -16,5 +16,5 @@ urlpatterns = [
     path("search", views.search, name='search'),
     path('like', views.like, name="like"),
     path("liked", views.liked, name="liked"),
-    path("profile", views.profile, name="profile"),
+    path("profile/<str:scheme>", views.profile, name="profile"),
 ]

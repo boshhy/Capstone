@@ -170,3 +170,16 @@ body {
     bottom: 0px;
     color: black;
 }
+
+tr:nth-child(even) {
+    background-color: #101010;
+}
+
+#profile_table {
+    text-decoration: none;
+    color: orange;
+}
+
+#profile_name {
+    color: yellow;
+}

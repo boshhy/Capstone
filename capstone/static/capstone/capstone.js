@@ -2,15 +2,17 @@ document.addEventListener("DOMContentLoaded", function () {
     title = document.getElementById('title');
     like_icons = document.querySelectorAll("#like_icon");
 
-    like_icons.forEach(icon => {
-        icon.addEventListener("click", like_icon_clicked)
-    })
+    if (title != null) {
+        like_icons.forEach(icon => {
+            icon.addEventListener("click", like_icon_clicked)
+        })
 
-    if (title.innerHTML == "Flappy Bird") {
-        start_flappy();
-    }
-    else if (title.innerHTML == "Snake") {
-        start_snake();
+        if (title.innerHTML == "Flappy Bird") {
+            start_flappy();
+        }
+        else if (title.innerHTML == "Snake") {
+            start_snake();
+        }
     }
     else {
         console.log("You are not on a game page")

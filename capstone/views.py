@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.urls import reverse
-from .models import User, Game, Score
+from .models import User, Game, Score, Profile
 import json
 
 
@@ -79,23 +79,6 @@ def game(request, game_title):
     })
 
 
-# def flappy(request):
-#     title = "Flappy Bird"
-#     game_id = Game.objects.get(title="flappy_bird")
-#     top_points = Score.objects.filter(game=game_id).order_by('-points')
-#     return render(request, "capstone/game.html", {
-#         'title': title,
-#         'top_points': top_points,
-#     })
-
-
-# def snake(request):
-#     title = "Snake"
-#     return render(request, "capstone/game.html", {
-#         'title': title,
-#     })
-
-
 @csrf_exempt
 def score(request):
     if request.method == "POST":
@@ -110,7 +93,13 @@ def score(request):
 
         top_scores_for_game = Score.objects.filter(
             game=game).order_by("-points")
-        if top_scores_for_game.count() < 10 and points != 0:
+        if points > 0:
+            profile = Profile(user=user_id, game=game, points=points)
+            profile.save()
+            print(profile.time)
+        if points == 0:
+            return JsonResponse({"outcome": "same"})
+        if top_scores_for_game.count() < 10:
             score.save()
             return JsonResponse({"outcome": "updated"})
         elif points > top_scores_for_game[9].points:
@@ -207,5 +196,42 @@ def liked(request):
         })
 
 
-def profile(request):
-    return HttpResponse("user history here")
+def profile(request, scheme):
+    print("-------------------hello")
+    if scheme == 'points_descending':
+        scheme = '-points'
+    if scheme == 'game_descending':
+        scheme = '-game'
+    if scheme == 'time_descending':
+        scheme = '-time'
+
+    all_user_scores = Profile.objects.filter(
+        user=request.user.id).order_by(f'{scheme}')
+
+    points = 'points'
+    game_title = "game"
+    time = 'time'
+    username = 'user'
+
+    if scheme == 'points':
+        points = 'points_descending'
+    elif scheme == '-points':
+        points = 'points'
+
+    if scheme == 'game':
+        game_title = 'game_descending'
+    elif scheme == '-game':
+        game_title = 'game'
+
+    if scheme == 'time':
+        time = 'time_descending'
+    elif scheme == '-time':
+        time = 'time'
+
+    return render(request, "capstone/profile.html", {
+        "all_user_scores": all_user_scores,
+        "points": points,
+        "game_title": game_title,
+        'username': username,
+        "time": time,
+    })
