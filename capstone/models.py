@@ -29,6 +29,7 @@ class Score(models.Model):
         return {
             "points": self.points,
             "user": self.username.username,
+            "id": self.username.id,
         }
 
     def __str__(self):
@@ -43,12 +44,6 @@ class Profile(models.Model):
     points = models.DecimalField(
         max_digits=16, decimal_places=0, default=0)
     time = models.DateTimeField(auto_now_add=True, blank=False)
-
-    def serialize(self):
-        return {
-            "points": self.points,
-            "user": self.username.username,
-        }
 
     def __str__(self):
         return f"{self.points} - {self.user}"

@@ -2,7 +2,7 @@
 {% load static %}
 {% block body %}
 
-<div id="game_background">
+<div id="game_background" data-playerid="{{request.user.id}}">
 <div class="sidebar-flex">
 
     <div id="points">
@@ -13,8 +13,13 @@
             </tr>
             {% for score in top_points %}
             <tr>
-                <td>{{ score.points }}</td>
-                <td>{{ score.username }}</td>
+                {% if request.user == score.username %}
+                    <td style="color: aqua" data-userid={{request.user.id}}>{{ score.points }}</td>
+                    <td style="color:aqua" data-userid={{request.user.id}}>{{ score.username }}</td>
+                {% else %}
+                <td data-userid={{request.user.id}}>{{ score.points }}</td>
+                <td data-userid={{request.user.id}}>{{ score.username }}</td>
+                {% endif %}
             </tr>
             {% endfor %}
         </table>

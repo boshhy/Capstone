@@ -310,6 +310,7 @@ function snake() {
 
 
 function go_fetch(points, game) {
+
     console.log("made it to go_fetch")
     fetch('/score', {
         method: 'POST',
@@ -339,7 +340,12 @@ function go_fetch(points, game) {
                         tr.append(th_2);
                         table1.append(tr)
 
+                        game_background = document.getElementById("game_background");
+                        player_id = game_background.dataset.playerid;
                         scores.forEach((score) => {
+
+                            console.log("player_id: " + player_id);
+                            console.log("score[id]: " + score["id"]);
                             tr = document.createElement("tr");
                             td_1 = document.createElement("td");
                             td_2 = document.createElement("td");
@@ -347,7 +353,10 @@ function go_fetch(points, game) {
                             td_1.innerHTML = score['points'];
                             td_2.innerHTML = score['user'];
 
-
+                            if (player_id == score['id']) {
+                                td_1.style.color = "aqua";
+                                td_2.style.color = "aqua";
+                            }
                             tr.append(td_1);
                             tr.append(td_2);
                             table1.append(tr);
