@@ -2,17 +2,21 @@
 {% load static %}
 {% block body %}
 
-<div id="game_background" data-playerid="{{request.user.id}}">
-<div class="sidebar-flex">
 
+<div id="game_background" data-playerid="{{request.user.id}}">
+<!-- Used to keep the game table scores to the left -->
+<div class="sidebar-flex">
+    <!-- Table will go inside this div -->
     <div id="points">
         <table>
             <tr>
                 <th>Top 10</th>
                 <th>User</th>
             </tr>
+            <!-- Display each score in a table row -->
             {% for score in top_points %}
-            <tr>
+            <tr>   
+                <!-- If current score belongs to logged in player then change color -->
                 {% if request.user == score.username %}
                     <td style="color: aqua" data-userid={{request.user.id}}>{{ score.points }}</td>
                     <td style="color:aqua" data-userid={{request.user.id}}>{{ score.username }}</td>
@@ -24,10 +28,12 @@
             {% endfor %}
         </table>
     </div>
+    <!-- Discplay the canvas only if player is logged in -->
     {% if user.is_authenticated %}
         <div id="div_canvas">
             <b><h4><div id="title">{{ the_game.name }}</div></h4></b>
             <div id="the_heart">
+                <!-- Used to dispaly a liked or unliked heart icon -->
                 {% if request.user in the_game.likes.all %}
                     <i class="fa-solid fa-heart liked" id="like_icon" data-iconid="{{the_game.id}}"></i>
                 {% else %}
@@ -38,6 +44,7 @@
             <canvas id="canvas"></canvas>
         </div>
     {% else %} 
+    <!-- If user is not logged in display a 'log in to play' box -->
     <div id="div_canvas">
         <br>
         <div id="title">
@@ -49,17 +56,17 @@
            <br>
            <i class="fa-regular fa-heart game_like"></i>
         </div>
+        <!-- display image of game but no canvas because user is not logged in -->
         <img id="start_image" src="{{ the_game.imageURL }}" alt="Could not load image">
 
     </div>
     {% endif %}
-    
+    <!-- Will be used to dispaly the directions and information about the current game -->
     <div id="directions">
         <div id="instructions">
             {{ the_game.description }}
         </div>
     </div>
-
 </div>
 </div>
 {% endblock %}
