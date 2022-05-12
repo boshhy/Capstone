@@ -3,13 +3,14 @@
 document.addEventListener("DOMContentLoaded", function () {
     title = document.getElementById('title');
     like_icons = document.querySelectorAll("#like_icon");
+    // Add an event listener to all heart icons, so user can like a game
+    like_icons.forEach(icon => {
+        icon.addEventListener("click", like_icon_clicked)
+    })
 
     // If game found run current title else don't run anything
     if (title != null) {
-        // Add an event listener to all heart icons, so user can like a game
-        like_icons.forEach(icon => {
-            icon.addEventListener("click", like_icon_clicked)
-        })
+
         // go to set up flappy bird
         if (title.innerHTML == "Flappy Bird") {
             start_flappy();
@@ -18,9 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
         else if (title.innerHTML == "Snake") {
             start_snake();
         }
-    }
-    else {
-        console.log("You are not on a game page")
     }
 })
 
@@ -417,8 +415,6 @@ function go_fetch(points, game) {
                         player_id = game_background.dataset.playerid;
                         scores.forEach((score) => {
                             // create a table row for each score
-                            console.log("player_id: " + player_id);
-                            console.log("score[id]: " + score["id"]);
                             tr = document.createElement("tr");
                             td_1 = document.createElement("td");
                             td_2 = document.createElement("td");

@@ -1,25 +1,27 @@
 {% extends "capstone/layout.html" %}
 
 {% block body %}
-
-<div style="color: white; text-align: center; margin-top: 10px;">
-    <div style="margin-bottom: 10px;"><h2>Player History for <i id='profile_name'>{{request.user}}</i></h2></div>
-    <table style="margin: auto;">
-        <tr>
-            <th><a id='profile_table' href="{% url 'profile' points %}">Score</a></th>
-            <th><a id='profile_table' href="{% url 'profile' game_title %}">Game</a></th>
-            <th><a id='profile_table' href="{% url 'profile' username %}">User</th>
-            <th><a id='profile_table' href="{% url 'profile' time %}">Time</a></th>
-        </tr>
-    {% for score in all_user_scores %}
-        <tr>
-            <td>{{score.points}}</td>
-            <td><a style="text-decoration: none; color: white" href="{% url 'game' score.game.title %}">{{score.game.name}}</a></td>
-            <td>{{score.user.username}}</td>
-            <td>{{score.time}}</td>
-        </tr>
-    {% endfor %}
-    </table>
-
-<div>
+    <!-- Create a table of score history for the user -->
+    <div style="color: white; text-align: center; margin-top: 10px;">
+        <div style="margin-bottom: 10px;"><h2>Player History for <i id='profile_name'>{{request.user}}</i></h2></div>
+        <table style="margin: auto;">
+            <!-- Users can choose how to sort their table -->
+            <!-- The folling table row is for the headers -->
+            <tr>
+                <th><a id='profile_table' href="{% url 'profile' points %}">Score</a></th>
+                <th><a id='profile_table' href="{% url 'profile' game_title %}">Game</a></th>
+                <th><a id='profile_table' href="{% url 'profile' username %}">User</th>
+                <th><a id='profile_table' href="{% url 'profile' time %}">Time</a></th>
+            </tr>
+        <!-- For each score add a row to the table -->
+        {% for score in all_user_scores %}
+            <tr>
+                <td>{{score.points}}</td>
+                <td><a style="text-decoration: none; color: white" href="{% url 'game' score.game.title %}">{{score.game.name}}</a></td>
+                <td>{{score.user.username}}</td>
+                <td>{{score.time}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    <div>
 {% endblock %}
