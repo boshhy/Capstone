@@ -9,9 +9,10 @@ class User(AbstractUser):
 class Game(models.Model):
     title = models.CharField(max_length=64, blank=False)
     name = models.CharField(max_length=64, blank=False)
-    description = models.TextField(blank=False)
+    instructions = models.TextField(max_length=500, blank=False)
+    description = models.TextField(max_length=500, blank=False)
     imageURL = models.CharField(max_length=1024, blank=True)
-    likes = models.ManyToManyField("User")
+    likes = models.ManyToManyField("User", blank=True)
 
     def __str__(self):
         return f"{self.title}"

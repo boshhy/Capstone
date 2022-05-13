@@ -188,9 +188,9 @@ function flappy() {
                 ctx.drawImage(pipedown, pipe[i].x, pipe[i].y + constant);
                 ctx.drawImage(ground, 0, canvas.height - ground.height);
                 ctx.drawImage(bird, bX, bY);
-                ctx.fillstyle = "#000";
-                ctx.font = "26px Verdana";
-                ctx.fillText("Score: " + score, 10, canvas.height - 20);
+                ctx.fillStyle = "black";
+                ctx.font = "45px Changa one";
+                ctx.fillText("Score:" + score, 64, canvas.height - 40);
                 hit.volume = 0.4;
                 hit.play();
                 return;
@@ -209,9 +209,9 @@ function flappy() {
         // Move bird y location accordingly by what the gravity is
         bY += gravity;
         // used to display the curernt score for player
-        ctx.fillstyle = "#000";
-        ctx.font = "26px Verdana";
-        ctx.fillText("Score: " + score, 10, canvas.height - 20);
+        ctx.fillStyle = "black";
+        ctx.font = "45px Changa one";
+        ctx.fillText("Score:" + score, 64, canvas.height - 40);
         // go the the next frame
         requestAnimationFrame(draw);
     }
