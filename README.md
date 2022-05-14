@@ -16,7 +16,13 @@ This project Is a Gaming web applications using Python and JavaScript. This appl
 - **capstone.js**: Used to set up game variables for selected game. Listens for key presses to start game. Once game is started JavaScript listens for proper key presses for proper gameplay to occur. Has functions that uses fetch calls to call API. Creates and removes elements from the DOM according to the results of the API call. This file is also responsible for listening for clicks on the like icons and handles event with an fetch call to API.
 - **models.py**: Contains the models for Score, Game, and Profile. Score will contain only the top ten scores for each game. Game will contain the information about the game directions and instructions. Profile will contain all scores that the user has made.
 - **views.py**: Contains functions that compose the information that is to be passed to html pages or API calls.
-    - **index**: 
+    - **index**: Used to get all game titles for main page.
+    - **game**: Used to load selected game information and top points for user.
+    - **score**: Used as API to check to see if player has made it to the top 10. Outcome will either be 'same' or 'updated' and outcome will be used by JavaScript to leave things as is or load new scores.
+    - **update_score**: Used as API if a game score was updated, get current top 10 scores and return to change DOM.
+    - **search**: Used to search game names and return results matching substring.
+    - **like**: Used to add or remove player for game's like list.
+    - **liked**: Get the player's liked games and return liked games.
+    - **Profile**: Gets the game history table for user and orders it by requested scheme
 ## How to run your application
-
-## Any other additional information the staff should know about your project.
+To run the application locally first download the repository and have python installed. Using an IDE like Visual Studio Code change directory into the folder and run `python manage.py runserver`. That's it users should be able to visit `127.0.0.1:8000` to view the page. User needs to register before playing any game.
