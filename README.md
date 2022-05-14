@@ -9,8 +9,14 @@ This project Is a Gaming web applications using Python and JavaScript. This appl
 
 
 ## What’s contained in each file you created.
-- **index.HTML**: If a user is not logged in a message will display prompting the user to log in to play games. this page also includes all available games that can be played. A search form is used to search for games be name. Each game has an image, name and a brief description associated with each game. Users also have the ability to like games from this page.
-- **game.HTML**: Used to display proper game to the user. This is a template and depending on the game requested Django will pass the proper setup for the game. JavaScript will listen for the game requested and load correct game.
+- **index.html**: If a user is not logged in a message will display prompting the user to log in to play games. this page also includes all available games that can be played. A search form is used to search for games be name. Each game has an image, name and a brief description associated with each game. Users also have the ability to like games from this page.
+- **game.html**: Used to display proper game to the user. This is a template and depending on the game requested Django will pass the proper setup for the game. JavaScript will listen for the game requested and load correct game. This also displays top ten scores for the game being played. The main element to listen for is a canvas a title of game. If player is not logged in they will not get either of those and just be displayed with an image and be prompted to log in. A brief game description and how to play will also display on this page.
+- **liked.html**: Used to display only the liked games for the logged in user. Users also have the option to remove or add liked games to the list from this page.
+- **profile.html**: Used to display a game history for the user. All games every played and scored one or more points will be displayed on this page. Table can be ordered by scores, game name, or time of entry.
+- **capstone.js**: Used to set up game variables for selected game. Listens for key presses to start game. Once game is started JavaScript listens for proper key presses for proper gameplay to occur. Has functions that uses fetch calls to call API. Creates and removes elements from the DOM according to the results of the API call. This file is also responsible for listening for clicks on the like icons and handles event with an fetch call to API.
+- **models.py**: Contains the models for Score, Game, and Profile. Score will contain only the top ten scores for each game. Game will contain the information about the game directions and instructions. Profile will contain all scores that the user has made.
+- **views.py**: Contains functions that compose the information that is to be passed to html pages or API calls.
+    - **index**: 
 ## How to run your application
 
 ## Any other additional information the staff should know about your project.
